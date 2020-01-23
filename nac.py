@@ -33,7 +33,7 @@ assert FROM_PWD
 assert IMAP_SERVER
 
 #Delete all emails with "Subject" or "Body" containing these tags
-kws  = ['QlikView', 'Garden City, NY', 'Arizona', 'Washington DC']
+kws  = ['QlikView', 'Garden City, NY', 'Arizona', 'Washington DC','Hadoop Admin']
 
 #Label all emails with "From" containing these tags
 lbls = ['Etsy']
@@ -65,7 +65,6 @@ def label_message(mail, id, label):
 def delete_trash(mail):
 	#time.sleep(5)
 	out = mail.select('[Gmail]/Trash')  # select all trash
-	pp(out)
 	assert out[0]  == 'OK'
 	if len(out[1]) > 0:
 		
@@ -119,12 +118,10 @@ def delete_from_inbox():
 								delete_trash(mail)
 							else:
 								pass
-								#print (int(i), 'Pass', kw)
-					if 0:
-						for lbl in lbls:
-							if lbl.upper() in frm:
-								print('Label',lbl,  frm)							
-								label_message(mail, i, lbl)									
+			for lbl in lbls:
+				if lbl.upper() in frm:
+					print('Label "%s"' % lbl,  frm)							
+					label_message(mail, i, lbl)									
 						
 					
 		#delete_trash(mail)
