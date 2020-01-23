@@ -70,8 +70,10 @@ def delete_trash(mail):
 	if len(out[1]) > 0:
 		
 		mail.store("1", '+FLAGS', '\\Deleted')
-		mail.expunge()	
 		print ('Trash deleted (%s)' % len(out[1]))
+		mail.expunge()	
+		
+		
 	else:
 		print ('Trash is empty')
 		time.sleep(1)
@@ -107,12 +109,12 @@ def delete_from_inbox():
 					if 1:
 						for kw in kws:
 							if kw.upper() in subj:
-								print (int(i), 'Subj', kw)
+								print (int(i), 'Subj "%s"' % kw)
 								
 								delete_message(mail, i)
 								delete_trash(mail)
 							elif kw.upper() in body:
-								print (int(i), 'Body', kw)
+								print (int(i), 'Body "%s"' % kw)
 								delete_message(mail, i)
 								delete_trash(mail)
 							else:

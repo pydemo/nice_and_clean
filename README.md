@@ -12,6 +12,15 @@ Delete unwanted emails from your Gmail inbox.
 kws  = ['QlikView', 'Garden City, NY', 'Arizona', 'Washington DC']
 ```
 
+## Label filters
+
+
+```Python
+#Label all emails with "From" containing these tags
+lbls = ['Etsy']
+```
+
+# Usage
 
 ```
 C:\Users\alex_\mygit\clean>python nac.py
