@@ -24,6 +24,11 @@ from email import message
 
 import smtplib
 
+import imaplib, getpass, re
+pattern_uid = re.compile(b'\d+ \(UID (?P<uid>\d+)\)')
+
+
+
 FROM_EMAIL  = os.environ.get('FROM_EMAIL').strip("'")
 FROM_PWD 	= os.environ.get('FROM_PWD').strip("'")
 IMAP_SERVER = os.environ.get('IMAP_SERVER').strip("'")
@@ -33,16 +38,18 @@ assert FROM_PWD
 assert IMAP_SERVER
 
 #Delete all emails with "Subject" or "Body" containing these tags
-kws  = ['QlikView',  'Hadoop Admin', '.Net Developer',  'Hadoop Architect', 'Power BI Administrator']
+kws  = ['QlikView',  'Hadoop Admin', '.Net Developer',  'Hadoop Architect', 'Power BI Administrator','Pro C',
+'Production Support Lead', 'Oracle DBA']
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
-'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD']
+'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
+'St. Paul, MN', 'Renton, WA']
 #Label all emails with "From" containing these tags
-lbls = ['Etsy']
+lbls = ['Etsy','Google']
 
 #Override delete if following tags are present	
-keep = ['New York']
+keep = ['New York', 'Remote', 'Jersey City']
 #Clear \\Trash		
-erase = False
+erase = True
 		
 def get_body(msg): 
 	if msg.is_multipart(): 
@@ -82,7 +89,9 @@ def delete_trash(mail, erase=erase):
 		print ('Trash is empty')
 		time.sleep(1)
 		
-		
+def parse_uid(data):
+	match = pattern_uid.match(data)
+	return match.group('uid')		
 	
 def delete_from_inbox():
 
@@ -101,7 +110,9 @@ def delete_from_inbox():
 		for i in mail_ids.split():
 			deleted = False
 			typ, data = mail.fetch(i, '(RFC822)' )
-
+			resp, dt = mail.fetch(i, "(UID)")
+			msg_uid = parse_uid(dt[0])
+			print (i,msg_uid)
 			for response_part in data:
 				if isinstance(response_part, tuple):
 					
@@ -110,7 +121,7 @@ def delete_from_inbox():
 					body = get_body(msg).upper()
 					frm  = msg.get('From').upper()
 					
-				
+
 					if 1:
 						for kw in kws:
 							if kw.upper() in subj:
@@ -133,9 +144,9 @@ def delete_from_inbox():
 									print (int(i), 'Loc Body "%s"' % loc)
 									deleted = True
 									
-								if any(list(map(lambda x: x.upper() in subj, keep))):
-									print (i, 'Keep') 
-									deleted = False
+							if any(list(map(lambda x: x.upper() in subj, keep))):
+								print (i, 'Keep "%s"' % loc, frm, subj[:20]) 
+								deleted = False
 									
 				
 			if deleted: 				
