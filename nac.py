@@ -33,10 +33,9 @@ assert FROM_PWD
 assert IMAP_SERVER
 
 #Delete all emails with "Subject" or "Body" containing these tags
-kws  = ['QlikView', 'Garden City, NY', 'Arizona', 'Washington DC', 'Hadoop Admin', 'Branchburg, NJ', 'Whippany, NJ',
-'Columbus OH', 'Denver, CO', 'Dallas TX', '.Net Developer', 'Albertville, AL', 'Hadoop Architect',
-'RENTON, Washington', 'Power BI Administrator']
-
+kws  = ['QlikView',  'Hadoop Admin', '.Net Developer',  'Hadoop Architect', 'Power BI Administrator']
+locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
+'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD']
 #Label all emails with "From" containing these tags
 lbls = ['Etsy']
 
@@ -115,22 +114,34 @@ def delete_from_inbox():
 					if 1:
 						for kw in kws:
 							if kw.upper() in subj:
-								print (int(i), 'Subj "%s"' % kw)
+								print (int(i), 'Key Subj "%s"' % kw)
 								deleted = True
 								
 							elif kw.upper() in body:
-								print (int(i), 'Body "%s"' % kw)
+								print (int(i), 'Key Body "%s"' % kw)
 								deleted = True
 
 							else:
 								pass
-			if deleted: 
-				if any(list(map(lambda x: x.upper() in subj, keep))):
-					print (i, 'Keep') 
-				else:
-					delete_message(mail, i)
-					delete_trash(mail)
-					deleted = False
+						if not deleted:
+							for loc in locs:
+								if loc.upper() in subj:
+									print (int(i), 'Loc Subj "%s"' % loc)
+									deleted = True
+									
+								elif loc.upper() in body:
+									print (int(i), 'Loc Body "%s"' % loc)
+									deleted = True
+									
+								if any(list(map(lambda x: x.upper() in subj, keep))):
+									print (i, 'Keep') 
+									deleted = False
+									
+				
+			if deleted: 				
+				delete_message(mail, i)
+				delete_trash(mail)
+				deleted = False
 			else:
 				for lbl in lbls:
 					if lbl.upper() in frm:
@@ -146,88 +157,3 @@ def delete_from_inbox():
 		
 if 1:
 	delete_from_inbox()
-if 0:
-	args = dict([arg.split('=') for arg in sys.argv[1:]])
-
-	print("Logging into GMAIL with user %s\n" % args['username'])
-	box = imaplib.IMAP4_SSL('imap.gmail.com')
-	pp(args)
-	box.login('olek.buzu@gmail.com', '198Morgan;')
-	box.select('Inbox')
-	typ, data = box.search(None, 'ALL')
-	assert typ in ['OK'], typ
-	mids = data[0].split()
-	print(mids[0])
-	typ, mail = box.fetch(mids[0], '(RFC822)' )
-	pp(type(mail[0]))
-	response_part = ''.join([str(row) for row in mail[0][1:]])
-	#print (response_part)
-	if isinstance(response_part, str):
-		msg = email.message_from_string(response_part)
-		pp(msg.keys())
-		if 1:
-			
-			email_subject = msg['subject']
-			email_from = msg['from']
-			print ('From : ' , email_from )
-			print ('Subject : ' , email_subject)
-
-#box.store(num, '+FLAGS', '\\Trash')
-#box.expunge()
-#box.close()
-#box.logout()
-
-
-def send_mail(to_address, subject, body):
-	smtp_user = "olek.buzu@gmail.com"
-	smtp_password = "198Morgan;"
-	server = "smtp.gmail.com"
-	port = 587
-
-	msg = MIMEMultipart("alternative")
-	msg["Subject"] = subject
-	msg["From"] = smtp_user
-	msg["To"] = to_address
-	msg.attach(MIMEText(body, "html"))
-	s = smtplib.SMTP(server, port)
-	s.connect(server, port)
-	s.ehlo()
-	s.starttls()
-	s.ehlo()
-	s.login(smtp_user, smtp_password)
-	s.sendmail(smtp_user, to_address, msg.as_string())
-	s.quit()
-	
-if 0:
-	send_mail('olek.buzu@gmail.com', 'test', 'test')
-	
-	
-if 0:
-	args = dict([arg.split('=') for arg in sys.argv[1:]])
-
-	print("Logging into GMAIL with user %s\n" % args['username'])
-	server = imaplib.IMAP4_SSL('imap.gmail.com')
-	pp(args)
-	connection_message = server.login('olek.buzu@gmail.com', '198Morgan;')
-	pp(connection_message)
-	#e()
-	if args.get('label'):
-		print("Using label: %s" % args['label'])
-		server.select(args['label'])
-	else:
-		print("Using inbox")
-		server.select("inbox")
-
-	print("Searching emails from %s" % args['sender'])
-	result_status, email_ids = server.search(None, '(FROM "%s")' % args['sender'])
-	email_ids = email_ids[0].split()
-
-	if len(email_ids) == 0:
-		print("No emails found, finishing...")
-
-	else:
-		print("%d emails found, sending to trash folder..." % len(email_ids))
-		server.store('1:*', '+X-GM-LABELS', '\\Trash')
-		server.expunge()
-
-	print("Done!")
