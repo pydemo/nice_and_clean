@@ -33,11 +33,12 @@ assert FROM_PWD
 assert IMAP_SERVER
 
 #Delete all emails with "Subject" or "Body" containing these tags
-kws  = ['QlikView', 'Garden City, NY', 'Arizona', 'Washington DC','Hadoop Admin']
+kws  = ['QlikView', 'Garden City, NY', 'Arizona', 'Washington DC', 'Hadoop Admin', 'Branchburg, NJ', 'Whippany, NJ']
 
 #Label all emails with "From" containing these tags
 lbls = ['Etsy']
 		
+keep = ['New York']
 		
 		
 def get_body(msg): 
@@ -92,8 +93,9 @@ def delete_from_inbox():
 		first_email_id = int(id_list[0])
 		latest_email_id = int(id_list[-1])
 
-
+		subj=body=frm=None
 		for i in mail_ids.split():
+			deleted = False
 			typ, data = mail.fetch(i, '(RFC822)' )
 
 			for response_part in data:
@@ -103,25 +105,32 @@ def delete_from_inbox():
 					subj = get_subject(msg).upper()
 					body = get_body(msg).upper()
 					frm  = msg.get('From').upper()
-					#label
+					
 				
 					if 1:
 						for kw in kws:
 							if kw.upper() in subj:
 								print (int(i), 'Subj "%s"' % kw)
+								deleted = True
 								
-								delete_message(mail, i)
-								delete_trash(mail)
 							elif kw.upper() in body:
 								print (int(i), 'Body "%s"' % kw)
-								delete_message(mail, i)
-								delete_trash(mail)
+								deleted = True
+
 							else:
 								pass
-			for lbl in lbls:
-				if lbl.upper() in frm:
-					print('Label "%s"' % lbl,  frm)							
-					label_message(mail, i, lbl)									
+			if deleted: 
+				if any(list(map(lambda x: x.upper() in subj or x.upper() in body, keep))):
+					print (i, 'Keep "%s"' % x) 
+				else:
+					delete_message(mail, i)
+					delete_trash(mail)
+					deleted = False
+			else:
+				for lbl in lbls:
+					if lbl.upper() in frm:
+						print('Label "%s"' % lbl,  frm)							
+						label_message(mail, i, lbl)									
 						
 					
 		#delete_trash(mail)
