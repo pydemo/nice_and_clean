@@ -25,7 +25,7 @@ from email import message
 import smtplib
 
 import imaplib, getpass, re
-pattern_uid = re.compile(b'\d+ \(UID (?P<uid>\d+)\)')
+
 
 
 
@@ -45,7 +45,7 @@ locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columb
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
 'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX']
 #Label all emails with "From" containing these tags
-lbls = ['Etsy','Google','Snowflake']
+lbls = ['Etsy','Google','Snowflake', 'Hilton']
 
 #Override delete if following tags are present	
 keep = ['New York', 'Remote', 'Jersey City']
@@ -102,8 +102,11 @@ def delete_trash(mail, erase=erase):
 		time.sleep(1)
 		
 def parse_uid(data):
+	pattern_uid = re.compile(b'\d+ \(UID (\d+)\)')
 	match = pattern_uid.match(data)
-	return match.group('uid')		
+	grps = match.groups()
+	assert len(grps)>0, grps
+	return grps[0]		
 	
 def delete_from_inbox():
 
@@ -124,11 +127,12 @@ def delete_from_inbox():
 			typ, data = mail.fetch(i, '(RFC822)' )
 			if 1:
 				resp, dt = mail.fetch(i, "(UID)")
+
 				msg_uid = parse_uid(dt[0])
-				print (i,msg_uid)
+				#print (i,msg_uid)
 			result = mail.fetch(i, '(X-GM-MSGID)')
 			gm_msgid = re.findall(b"X-GM-MSGID (\d+)", result[1][0])[0]
-			print (i,gm_msgid)
+			#print (i,gm_msgid)
 			#result = m.store(emailid, '+X-GM-LABELS', to_folder)
 			for response_part in data:
 				if isinstance(response_part, tuple):
