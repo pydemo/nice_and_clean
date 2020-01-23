@@ -25,12 +25,12 @@ lbls = ['Etsy']
 #Override delete if following tags are present	
 keep = ['New York']
 ```
-## Erase [Gmail]\\Trash
+## Erase [Gmail] Trash
 Note: Deleted emails will be gone forever
 ```Python
 erase = True
 ```
-If ```erase=False``` email will be kept in\\ Trash
+If ```erase=False``` email will be kept in **Trash**
 
 # Usage
 
