@@ -38,13 +38,14 @@ assert FROM_PWD
 assert IMAP_SERVER
 
 #Delete all emails with "Subject" or "Body" containing these tags
-kws  = ['QlikView',  'Hadoop Admin', '.Net Developer',  'Hadoop Architect', 'Power BI Administrator','Pro C',
-'Production Support Lead', 'Oracle DBA']
+kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net Developer',  'Hadoop Architect', 'Power BI Administrator','Pro C',
+'Production Support Lead', 'Oracle DBA', 'Cognos', 'Talend', 'HCM Cloud Technical', 'Business System Analyst',
+'Splunk Developer']
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
-'St. Paul, MN', 'Renton, WA']
+'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX']
 #Label all emails with "From" containing these tags
-lbls = ['Etsy','Google']
+lbls = ['Etsy','Google','Snowflake']
 
 #Override delete if following tags are present	
 keep = ['New York', 'Remote', 'Jersey City']
@@ -64,14 +65,25 @@ def get_emails(result_bytes):
 		typ, data = con.fetch(num, '(RFC822)') 
 		msgs.append(data) 
 
-def delete_message(mail, id):	
-	mail.store(id, '+X-GM-LABELS', '\\Trash')
+def delete_message(mail, msg_uid):	
+	#mail.store(id, '+X-GM-LABELS', '\\Trash')
 	#mail.store(id, '+FLAGS', '\\Deleted')
 	#mail.expunge()
 	#mail.close()
+	mov, data = mail.uid('STORE', msg_uid , '+FLAGS', '(\Deleted)')
+	pp(mov)
+	pp(data)	
+	mail.expunge()
 
-def label_message(mail, id, label):	
-	mail.store(id, '+X-GM-LABELS', '\\%s' % label)
+def label_message(mail, id, msg_uid, label):	
+	#mail.store(id, '-X-GM-LABELS', '\\inbox')
+	lbl = '_%s' % label
+	mail.store(id, '+X-GM-LABELS', lbl)
+	result = mail.uid('COPY', msg_uid, lbl)
+	pp(result)	
+	delete_message(mail, msg_uid)
+
+	
 	
 def delete_trash(mail, erase=erase):
 	#time.sleep(5)
@@ -110,9 +122,14 @@ def delete_from_inbox():
 		for i in mail_ids.split():
 			deleted = False
 			typ, data = mail.fetch(i, '(RFC822)' )
-			resp, dt = mail.fetch(i, "(UID)")
-			msg_uid = parse_uid(dt[0])
-			print (i,msg_uid)
+			if 1:
+				resp, dt = mail.fetch(i, "(UID)")
+				msg_uid = parse_uid(dt[0])
+				print (i,msg_uid)
+			result = mail.fetch(i, '(X-GM-MSGID)')
+			gm_msgid = re.findall(b"X-GM-MSGID (\d+)", result[1][0])[0]
+			print (i,gm_msgid)
+			#result = m.store(emailid, '+X-GM-LABELS', to_folder)
 			for response_part in data:
 				if isinstance(response_part, tuple):
 					
@@ -147,17 +164,19 @@ def delete_from_inbox():
 							if any(list(map(lambda x: x.upper() in subj, keep))):
 								print (i, 'Keep "%s"' % loc, frm, subj[:20]) 
 								deleted = False
+							
 									
 				
 			if deleted: 				
-				delete_message(mail, i)
-				delete_trash(mail)
+				delete_message(mail, msg_uid)
+				#delete_trash(mail)
 				deleted = False
 			else:
 				for lbl in lbls:
 					if lbl.upper() in frm:
-						print('Label "%s"' % lbl,  frm)							
-						label_message(mail, i, lbl)									
+						print('Label "%s"' % lbl,  frm)	
+
+						label_message(mail, i, msg_uid, lbl)									
 						
 					
 		#delete_trash(mail)
