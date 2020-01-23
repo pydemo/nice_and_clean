@@ -34,3 +34,4 @@ C:\Users\alex_\mygit\clean>python nac.py
 Trash deleted (1)
 ```
 
+[<img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png">](https://www.buymeacoffee.com/0nJ32Xg)
