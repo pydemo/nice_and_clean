@@ -32,8 +32,9 @@ set IMAP_SERVER='imap.gmail.com'
 python nac.py
 ```
 ## Output
+Assuming you have one email with "Viagra" in it.
 ```
-2 Subj Washington DC
+2 Subj "Viagra"
 Trash deleted (1)
 ```
 
