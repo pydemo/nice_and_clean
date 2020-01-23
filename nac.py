@@ -67,12 +67,15 @@ def delete_trash(mail):
 	out = mail.select('[Gmail]/Trash')  # select all trash
 	assert out[0]  == 'OK'
 	if len(out[1]) > 0:
+		
 		mail.store("1", '+FLAGS', '\\Deleted')
+		mail.expunge()	
+		print ('Trash deleted (%s)' % len(out[1]))
 	else:
 		print ('Trash is empty')
 		time.sleep(1)
 		
-	mail.expunge()		
+		
 	
 def delete_from_inbox():
 
@@ -82,8 +85,7 @@ def delete_from_inbox():
 
 		typ, data = mail.search(None, 'ALL')
 		mail_ids = data[0]
-		pp(data)
-		#e()
+
 		id_list = mail_ids.split()   
 		first_email_id = int(id_list[0])
 		latest_email_id = int(id_list[-1])
@@ -96,11 +98,6 @@ def delete_from_inbox():
 				if isinstance(response_part, tuple):
 					
 					msg = email.message_from_bytes(response_part[1])
-					#pp(msg)
-					#print(msg.is_multipart())
-					
-					#print(msg.get_payload())
-					print(i, msg.get('From'), msg.get('To'),  msg.get('Date'))
 					subj = get_subject(msg).upper()
 					body = get_body(msg).upper()
 					frm  = msg.get('From').upper()
@@ -109,16 +106,17 @@ def delete_from_inbox():
 					if 1:
 						for kw in kws:
 							if kw.upper() in subj:
-								print ('Subj', kw)
+								print (int(i), 'Subj', kw)
 								
 								delete_message(mail, i)
 								delete_trash(mail)
 							elif kw.upper() in body:
-								print ('Body', kw)
+								print (int(i), 'Body', kw)
 								delete_message(mail, i)
 								delete_trash(mail)
 							else:
-								print ('Pass', kw)
+								pass
+								#print (int(i), 'Pass', kw)
 					if 0:
 						for lbl in lbls:
 							if lbl.upper() in frm:
