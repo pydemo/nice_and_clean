@@ -40,17 +40,19 @@ assert IMAP_SERVER
 #Delete all emails with "Subject" or "Body" containing these tags
 kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net Developer',  'Hadoop Architect', 'Power BI Administrator','Pro C',
 'Production Support Lead', 'Oracle DBA', 'Cognos', 'Talend', 'HCM Cloud Technical', 'Business System Analyst',
-'Splunk Developer']
+'Splunk Developer', 'MongoDB Clustering and Mongo DB scaling', 'Informatica Developer']
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
-'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX']
+'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX','Dallas, TX',
+'McLean, VA', 'Berwyn, PA']
 #Label all emails with "From" containing these tags
 lbls = ['Etsy','Google','Snowflake', 'Hilton']
 
 #Override delete if following tags are present	
 keep = ['New York', 'Remote', 'Jersey City']
+
 #Clear \\Trash		
-erase = True
+erase = False
 		
 def get_body(msg): 
 	if msg.is_multipart(): 
@@ -102,8 +104,13 @@ def delete_trash(mail, erase=erase):
 		time.sleep(1)
 		
 def parse_uid(data):
-	pattern_uid = re.compile(b'\d+ \(UID (\d+)\)')
-	match = pattern_uid.match(data)
+	pattern_uid = re.compile(b'\d+ \([A-Z\(\) a-z]?UID (\d+)\)')
+
+	try:
+		match = pattern_uid.match(data)
+	except:
+		pp(pattern_uid, data)
+		raise
 	grps = match.groups()
 	assert len(grps)>0, grps
 	return grps[0]		
@@ -122,12 +129,15 @@ def delete_from_inbox():
 		latest_email_id = int(id_list[-1])
 
 		subj=body=frm=None
-		for i in mail_ids.split():
+		mids=mail_ids.split()
+		for id in reversed(range(len(mids))):
+			i=mids[id]
 			deleted = False
 			typ, data = mail.fetch(i, '(RFC822)' )
 			if 1:
 				resp, dt = mail.fetch(i, "(UID)")
-
+				assert resp == 'OK', resp
+				assert dt[0], dt
 				msg_uid = parse_uid(dt[0])
 				#print (i,msg_uid)
 			result = mail.fetch(i, '(X-GM-MSGID)')
