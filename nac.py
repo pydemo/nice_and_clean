@@ -20,6 +20,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import message
+
 #message.EmailMessage import iter_parts
 
 import smtplib
@@ -40,16 +41,21 @@ assert IMAP_SERVER
 #Delete all emails with "Subject" or "Body" containing these tags
 kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net Developer',  'Hadoop Architect', 'Power BI Administrator','Pro C',
 'Production Support Lead', 'Oracle DBA', 'Cognos', 'Talend', 'HCM Cloud Technical', 'Business System Analyst',
-'Splunk Developer', 'MongoDB Clustering and Mongo DB scaling', 'Informatica Developer']
+'Splunk Developer', 'MongoDB Clustering and Mongo DB scaling', 'Microstrategy Developer','Informatica Developer',
+'Django and Flask', 'JavaScript and HTML5']
+
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
 'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX','Dallas, TX',
-'McLean, VA', 'Berwyn, PA', 'Dedham, MA']
+'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA']
+
+
+
 #Label all emails with "From" containing these tags
-lbls = ['Etsy','Google','Snowflake', 'Hilton']
+lbls = ['Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Facebook']
 
 #Override delete if following tags are present	
-keep = ['New York', 'Remote', 'Jersey City']
+keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles']
 
 #Clear \\Trash		
 erase = False
@@ -59,8 +65,17 @@ def get_body(msg):
 		return get_body(msg.get_payload(0)) 
 	else: 
 		return str(msg.get_payload(None, True).replace(str.encode(os.linesep), b''))
-def get_subject(msg): 	
-		return msg.get('Subject').replace(os.linesep, '')
+def get_subject(msg): 
+		sub = msg.get('Subject')
+		if type(sub) is str:		
+			return sub.replace(os.linesep, '') if sub else ''
+		elif type(sub) is email.header.Header:
+			decode = email.header.decode_header(msg['Subject'])[0]
+			pp(decode)
+			sub = str(decode[0])
+			return sub.replace(os.linesep, '') if sub else ''
+		else:
+			raise Exception('Unknown subject type "%"' % type(sub))
 def get_emails(result_bytes): 
 	msgs = [] 
 	for num in result_bytes[0].split(): 
@@ -88,7 +103,7 @@ def label_message(mail, id, msg_uid, label):
 	
 	
 def delete_trash(mail, erase=erase):
-	#time.sleep(5)
+
 	out = mail.select('[Gmail]/Trash')  # select all trash
 	assert out[0]  == 'OK'
 	if len(out[1]) > 0:
@@ -118,6 +133,7 @@ def parse_uid(data):
 def delete_from_inbox():
 
 		mail = imaplib.IMAP4_SSL(IMAP_SERVER)
+
 		mail.login(FROM_EMAIL,FROM_PWD)
 		mail.select('inbox')
 
@@ -130,20 +146,21 @@ def delete_from_inbox():
 
 		subj=body=frm=None
 		mids=mail_ids.split()
-		for id in reversed(range(len(mids))):
+
+		for id in range(len(mids)):
 			i=mids[id]
 			deleted = False
 			typ, data = mail.fetch(i, '(RFC822)' )
 			if 1:
 				resp, dt = mail.fetch(i, "(UID)")
 				assert resp == 'OK', resp
+				print(i, dt)
 				assert dt[0], dt
 				msg_uid = parse_uid(dt[0])
-				#print (i,msg_uid)
+
 			result = mail.fetch(i, '(X-GM-MSGID)')
 			gm_msgid = re.findall(b"X-GM-MSGID (\d+)", result[1][0])[0]
-			#print (i,gm_msgid)
-			#result = m.store(emailid, '+X-GM-LABELS', to_folder)
+
 			for response_part in data:
 				if isinstance(response_part, tuple):
 					
