@@ -20,7 +20,11 @@ kws  = ['QlikView', 'Garden City, NY', 'Arizona', 'Washington DC']
 #Label all emails with "From" containing these tags
 lbls = ['Etsy']
 ```
-
+## Override delete
+```Python
+#Override delete if following tags are present	
+keep = ['New York']
+```
 # Usage
 
 ```
