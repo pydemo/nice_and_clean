@@ -44,7 +44,7 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net Developer',  'Hadoop Archit
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
 'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX','Dallas, TX',
-'McLean, VA', 'Berwyn, PA']
+'McLean, VA', 'Berwyn, PA', 'Dedham, MA']
 #Label all emails with "From" containing these tags
 lbls = ['Etsy','Google','Snowflake', 'Hilton']
 
