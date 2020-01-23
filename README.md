@@ -25,11 +25,14 @@ lbls = ['Etsy']
 
 ```
 
-C:\Users\alex_\mygit\clean>set FROM_EMAIL='test@gmail.com'
-C:\Users\alex_\mygit\clean>set FROM_PWD='test'
-C:\Users\alex_\mygit\clean>set IMAP_SERVER='imap.gmail.com'
+set FROM_EMAIL='test@gmail.com'
+set FROM_PWD='test'
+set IMAP_SERVER='imap.gmail.com'
 
-C:\Users\alex_\mygit\clean>python nac.py
+python nac.py
+```
+## Output
+```
 2 Subj Washington DC
 Trash deleted (1)
 ```
