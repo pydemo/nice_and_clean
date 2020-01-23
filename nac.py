@@ -33,13 +33,17 @@ assert FROM_PWD
 assert IMAP_SERVER
 
 #Delete all emails with "Subject" or "Body" containing these tags
-kws  = ['QlikView', 'Garden City, NY', 'Arizona', 'Washington DC', 'Hadoop Admin', 'Branchburg, NJ', 'Whippany, NJ']
+kws  = ['QlikView', 'Garden City, NY', 'Arizona', 'Washington DC', 'Hadoop Admin', 'Branchburg, NJ', 'Whippany, NJ',
+'Columbus OH', 'Denver, CO', 'Dallas TX', '.Net Developer', 'Albertville, AL', 'Hadoop Architect',
+'RENTON, Washington', 'Power BI Administrator']
 
 #Label all emails with "From" containing these tags
 lbls = ['Etsy']
-		
+
+#Override delete if following tags are present	
 keep = ['New York']
-		
+#Clear \\Trash		
+erase = False
 		
 def get_body(msg): 
 	if msg.is_multipart(): 
@@ -63,7 +67,7 @@ def delete_message(mail, id):
 def label_message(mail, id, label):	
 	mail.store(id, '+X-GM-LABELS', '\\%s' % label)
 	
-def delete_trash(mail):
+def delete_trash(mail, erase=erase):
 	#time.sleep(5)
 	out = mail.select('[Gmail]/Trash')  # select all trash
 	assert out[0]  == 'OK'
@@ -71,7 +75,8 @@ def delete_trash(mail):
 		
 		mail.store("1", '+FLAGS', '\\Deleted')
 		print ('Trash deleted (%s)' % len(out[1]))
-		mail.expunge()	
+		if erase:
+			mail.expunge()	
 		
 		
 	else:
@@ -120,8 +125,8 @@ def delete_from_inbox():
 							else:
 								pass
 			if deleted: 
-				if any(list(map(lambda x: x.upper() in subj or x.upper() in body, keep))):
-					print (i, 'Keep "%s"' % x) 
+				if any(list(map(lambda x: x.upper() in subj, keep))):
+					print (i, 'Keep') 
 				else:
 					delete_message(mail, i)
 					delete_trash(mail)
