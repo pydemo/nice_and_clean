@@ -55,9 +55,9 @@ def get_emails(result_bytes):
 
 def delete_message(mail, id):	
 	mail.store(id, '+X-GM-LABELS', '\\Trash')
-	mail.store(id, '+FLAGS', '\\Deleted')
-	mail.expunge()
-	mail.close()
+	#mail.store(id, '+FLAGS', '\\Deleted')
+	#mail.expunge()
+	#mail.close()
 
 def label_message(mail, id, label):	
 	mail.store(id, '+X-GM-LABELS', '\\%s' % label)
@@ -65,6 +65,7 @@ def label_message(mail, id, label):
 def delete_trash(mail):
 	#time.sleep(5)
 	out = mail.select('[Gmail]/Trash')  # select all trash
+	pp(out)
 	assert out[0]  == 'OK'
 	if len(out[1]) > 0:
 		
