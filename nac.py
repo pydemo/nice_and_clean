@@ -1,13 +1,13 @@
 #coding: utf-8
 
 '''
-No params
-
-Usage: python nac.py
 
 set FROM_EMAIL='test@gmail.com'
 set FROM_PWD='test'
 set IMAP_SERVER='imap.gmail.com'
+
+Usage: python nac.py
+
 '''
 
 
