@@ -1,6 +1,7 @@
 # nice_and_clean
 Delete unwanted emails from your Gmail inbox.
 
+![Nice And Clean](https://github.com/pydemo/nice_and_clean/blob/master/clean.jfif "Nice And Clean")
 
 # Filters
 
