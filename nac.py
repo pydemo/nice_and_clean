@@ -42,22 +42,24 @@ assert IMAP_SERVER
 kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net Developer',  'Hadoop Architect', 'Power BI Administrator','Pro C',
 'Production Support Lead', 'Oracle DBA', 'Cognos', 'Talend', 'HCM Cloud Technical', 'Business System Analyst',
 'Splunk Developer', 'MongoDB Clustering and Mongo DB scaling', 'Microstrategy Developer','Informatica Developer',
-'Django and Flask', 'JavaScript and HTML5']
+'Django and Flask', 'JavaScript and HTML5', 'Oracle Cloud CRM Functional Architect', 'Oracle Architect',
+'PowerCenter']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
 'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX','Dallas, TX',
-'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA', 'Seattle, WA']
+'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA', 'Seattle, WA',
+'Sunnyvale, CA', 'Houston, TX']
 
 
 
 #Label all emails with "From" containing these tags
 lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Facebook', 'Amazon', 'Quora', 'Pafa',
 'Linkedin', 'Elliot', 'Cybercoders', 'UBS','WESTERN ASSET', 'Oracle', 'VOLIACABLE', 'KFORCE', 'JOBSEARCHINFO',
-'HUXLEY','LAMP.CODER', 'Staffing', 'HEROLD.COM', 'job.com', 'Craigslist', 'Hotmail', 'Sans.com']
+'HUXLEY','LAMP.CODER', 'Staffing', 'HEROLD.COM', 'job.com', 'Craigslist', 'Hotmail', 'Sans.com','buzaleks']
 
 #Override delete if following tags are present	
-keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles', 'Python Developer']
+keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles', 'Python Developer', 'Seattle']
 
 #Clear \\Trash		
 erase = False
@@ -161,9 +163,9 @@ def delete_from_inbox():
 		latest_email_id = int(id_list[-1])
 
 		subj=body=frm=None
-		#mids=mail_ids.split()
-		mids = [b'%d' % x for x in range(1, 30000)]
-		for id in (range( len(mids))):
+		mids=mail_ids.split()
+		#mids = [b'%d' % x for x in range(1, 30000)]
+		for id in reversed(range( len(mids))):
 			i=mids[id]
 			deleted = False
 			typ, data = mail.fetch(i, '(RFC822)' )
@@ -227,7 +229,7 @@ def delete_from_inbox():
 						labelled = True
 						label_message(mail, i, msg_uid, lbl)
 						break
-				if not labelled:
+				if 1 and not labelled:
 					lbl=None
 					
 					tmp=frm.split('<')
@@ -241,7 +243,12 @@ def delete_from_inbox():
 							lbl = tmp[0].split(' ')[0]
 						
 					else:
-						sp = tmp[1].split('@')
+						try:
+							sp = tmp[1].split('@')
+						except:
+							pp(frm)
+							pp(tmp)
+							raise
 						assert len(sp) ==2, sp
 						lbl= sp[1].strip().strip('"').strip('>')
 					if lbl:
