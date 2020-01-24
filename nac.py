@@ -75,7 +75,8 @@ def get_subject(msg):
 			sub = str(decode[0])
 			return sub.replace(os.linesep, '') if sub else ''
 		else:
-			raise Exception('Unknown subject type "%"' % type(sub))
+			pp(sub)
+			raise Exception('Unknown subject type')
 def get_emails(result_bytes): 
 	msgs = [] 
 	for num in result_bytes[0].split(): 
