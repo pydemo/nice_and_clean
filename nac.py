@@ -52,7 +52,7 @@ locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columb
 
 
 #Label all emails with "From" containing these tags
-lbls = ['Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Facebook']
+lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Facebook']
 
 #Override delete if following tags are present	
 keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles']
@@ -75,8 +75,21 @@ def get_subject(msg):
 			sub = str(decode[0])
 			return sub.replace(os.linesep, '') if sub else ''
 		else:
-			pp(sub)
-			raise Exception('Unknown subject type')
+			return ''
+			#raise Exception('Unknown subject type')
+def get_from(msg): 
+		frm = msg.get('From')
+		if type(frm) is str:		
+			return frm.replace(os.linesep, '') if frm else ''
+		elif type(frm) is email.header.Header:
+			decode = email.header.decode_header(msg['From'])[0]
+			pp(decode)
+			frm = str(decode[0])
+			return frm.replace(os.linesep, '') if frm else ''
+		else:
+			return ''
+			#raise Exception('Unknown subject type')
+			
 def get_emails(result_bytes): 
 	msgs = [] 
 	for num in result_bytes[0].split(): 
@@ -148,7 +161,7 @@ def delete_from_inbox():
 		subj=body=frm=None
 		mids=mail_ids.split()
 
-		for id in range(len(mids)):
+		for id in range( len(mids)):
 			i=mids[id]
 			deleted = False
 			typ, data = mail.fetch(i, '(RFC822)' )
@@ -168,7 +181,7 @@ def delete_from_inbox():
 					msg = email.message_from_bytes(response_part[1])
 					subj = get_subject(msg).upper()
 					body = get_body(msg).upper()
-					frm  = msg.get('From').upper()
+					frm  = get_from(msg).upper() 
 					
 
 					if 1:
