@@ -43,13 +43,14 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net Developer',  'Hadoop Archit
 'Production Support Lead', 'Oracle DBA', 'Cognos', 'Talend', 'HCM Cloud Technical', 'Business System Analyst',
 'Splunk Developer', 'MongoDB Clustering and Mongo DB scaling', 'Microstrategy Developer','Informatica Developer',
 'Django and Flask', 'JavaScript and HTML5', 'Oracle Cloud CRM Functional Architect', 'Oracle Architect',
-'PowerCenter']
+'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
 'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX','Dallas, TX',
 'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA', 'Seattle, WA',
-'Sunnyvale, CA', 'Houston, TX']
+'Sunnyvale, CA', 'Houston, TX', 'Alpharetta, GA', 'Pittsburgh PA', 'Quincy, MA', 'Dedham, MA', 'Carry, NC',
+'Columbus, OH']
 
 
 
@@ -229,7 +230,7 @@ def delete_from_inbox():
 						labelled = True
 						label_message(mail, i, msg_uid, lbl)
 						break
-				if 1 and not labelled:
+				if 0 and not labelled:
 					lbl=None
 					
 					tmp=frm.split('<')
