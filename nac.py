@@ -47,15 +47,17 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net Developer',  'Hadoop Archit
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
 'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX','Dallas, TX',
-'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA']
+'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA', 'Seattle, WA']
 
 
 
 #Label all emails with "From" containing these tags
-lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Facebook']
+lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Facebook', 'Amazon', 'Quora', 'Pafa',
+'Linkedin', 'Elliot', 'Cybercoders', 'UBS','WESTERN ASSET', 'Oracle', 'VOLIACABLE', 'KFORCE', 'JOBSEARCHINFO',
+'HUXLEY','LAMP.CODER', 'Staffing', 'HEROLD.COM', 'job.com', 'Craigslist', 'Hotmail', 'Sans.com']
 
 #Override delete if following tags are present	
-keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles']
+keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles', 'Python Developer']
 
 #Clear \\Trash		
 erase = False
@@ -159,16 +161,16 @@ def delete_from_inbox():
 		latest_email_id = int(id_list[-1])
 
 		subj=body=frm=None
-		mids=mail_ids.split()
-
-		for id in range( len(mids)):
+		#mids=mail_ids.split()
+		mids = [b'%d' % x for x in range(1, 30000)]
+		for id in (range( len(mids))):
 			i=mids[id]
 			deleted = False
 			typ, data = mail.fetch(i, '(RFC822)' )
 			if 1:
 				resp, dt = mail.fetch(i, "(UID)")
 				assert resp == 'OK', resp
-				print(i, dt)
+				print(i, dt, frm, subj)
 				assert dt[0], dt
 				msg_uid = parse_uid(dt[0])
 
@@ -217,12 +219,38 @@ def delete_from_inbox():
 				#delete_trash(mail)
 				deleted = False
 			else:
+
+				labelled = False	
 				for lbl in lbls:
 					if lbl.upper() in frm:
 						print('Label "%s"' % lbl,  frm)	
-
-						label_message(mail, i, msg_uid, lbl)									
+						labelled = True
+						label_message(mail, i, msg_uid, lbl)
+						break
+				if not labelled:
+					lbl=None
+					
+					tmp=frm.split('<')
+					assert len(tmp)>0, tmp
+					if len(tmp) ==1:
+						sp = tmp[0].split('@')
+						try:
+							assert len(sp) ==2, sp
+							lbl = sp[1].strip()
+						except:
+							lbl = tmp[0].split(' ')[0]
 						
+					else:
+						sp = tmp[1].split('@')
+						assert len(sp) ==2, sp
+						lbl= sp[1].strip().strip('"').strip('>')
+					if lbl:
+						try:
+							label_message(mail, i, msg_uid, lbl)
+						except:
+							print("#"*40,  frm, lbl)
+							raise
+				labelled = False
 					
 		#delete_trash(mail)
 		
