@@ -43,7 +43,8 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net Developer',  'Hadoop Archit
 'Production Support Lead', 'Oracle DBA', 'Cognos', 'Talend', 'HCM Cloud Technical', 'Business System Analyst',
 'Splunk Developer', 'MongoDB Clustering and Mongo DB scaling', 'Microstrategy Developer','Informatica Developer',
 'Django and Flask', 'JavaScript and HTML5', 'Oracle Cloud CRM Functional Architect', 'Oracle Architect',
-'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert', 'Hadoop, Map Reduce, Yarn']
+'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert', 'Hadoop, Map Reduce, Yarn',
+'Administrative Assistant']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
@@ -57,7 +58,7 @@ locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columb
 #Label all emails with "From" containing these tags
 lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Facebook', 'Amazon', 'Quora', 'Pafa',
 'Linkedin', 'Elliot', 'Cybercoders', 'UBS', 'Oracle', 'VOLIACABLE', 'KFORCE', 'JOBSEARCHINFO',
-'HUXLEY','LAMP.CODER', 'Staffing', 'HEROLD.COM', 'job.com', 'Craigslist', 'Hotmail', 'Sans.com','buzaleks']
+'HUXLEY','LAMP.CODER', 'Staffing', 'HEROLD.COM', 'job.com', 'Craigslist', 'Hotmail', 'Sans.com','buzaleks','NAZARENKO']
 
 #Override delete if following tags are present	
 keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles', 'Python Developer', 'Seattle']
@@ -113,8 +114,12 @@ def delete_message(mail, msg_uid):
 
 def label_message(mail, id, msg_uid, label):	
 	#mail.store(id, '-X-GM-LABELS', '\\inbox')
-	lbl = '_%s' % label
-	mail.store(id, '+X-GM-LABELS', lbl)
+	lbl = '_%s' % label.split(' ')[0]
+	try:
+		mail.store(id, '+X-GM-LABELS', lbl)
+	except:
+		pp(lbl)
+		raise
 	result = mail.uid('COPY', msg_uid, lbl)
 	pp(result)	
 	delete_message(mail, msg_uid)
