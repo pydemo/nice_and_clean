@@ -56,7 +56,7 @@ locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columb
 
 #Label all emails with "From" containing these tags
 lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Facebook', 'Amazon', 'Quora', 'Pafa',
-'Linkedin', 'Elliot', 'Cybercoders', 'UBS','WESTERN ASSET', 'Oracle', 'VOLIACABLE', 'KFORCE', 'JOBSEARCHINFO',
+'Linkedin', 'Elliot', 'Cybercoders', 'UBS', 'Oracle', 'VOLIACABLE', 'KFORCE', 'JOBSEARCHINFO',
 'HUXLEY','LAMP.CODER', 'Staffing', 'HEROLD.COM', 'job.com', 'Craigslist', 'Hotmail', 'Sans.com','buzaleks']
 
 #Override delete if following tags are present	
