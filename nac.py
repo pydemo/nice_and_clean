@@ -258,7 +258,7 @@ def delete_from_inbox():
 						labelled = True
 						label_message(mail, i, msg_uid, lbl)
 						break
-				if 1 and not labelled:
+				if 0 and not labelled:
 					lbl=None
 					
 					tmp=frm.split('<')
