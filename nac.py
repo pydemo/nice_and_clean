@@ -43,14 +43,14 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net Developer',  'Hadoop Archit
 'Production Support Lead', 'Oracle DBA', 'Cognos', 'Talend', 'HCM Cloud Technical', 'Business System Analyst',
 'Splunk Developer', 'MongoDB Clustering and Mongo DB scaling', 'Microstrategy Developer','Informatica Developer',
 'Django and Flask', 'JavaScript and HTML5', 'Oracle Cloud CRM Functional Architect', 'Oracle Architect',
-'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert']
+'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert', 'Hadoop, Map Reduce, Yarn']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
 'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX','Dallas, TX',
 'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA', 'Seattle, WA',
 'Sunnyvale, CA', 'Houston, TX', 'Alpharetta, GA', 'Pittsburgh PA', 'Quincy, MA', 'Dedham, MA', 'Carry, NC',
-'Columbus, OH']
+'Columbus, OH', 'Chandler, AZ', 'Nashville, TN', 'Charlotte, NC']
 
 
 
@@ -148,7 +148,30 @@ def parse_uid(data):
 	grps = match.groups()
 	assert len(grps)>0, grps
 	return grps[0]		
-	
+def unseen():
+	conn = imaplib.IMAP4_SSL(imap_server)
+
+	try:
+		(retcode, capabilities) = conn.login(imap_user, imap_password)
+	except:
+		 
+		print(sys.exc_info()[1])
+		sys.exit(1)
+
+	conn.select(readonly=1) # Select inbox or default namespace
+	(retcode, messages) = conn.search(None, '(UNSEEN)')
+	if retcode == 'OK':
+		for num in messages[0].split(' '):
+			print ('Processing :', message)
+			typ, data = conn.fetch(num,'(RFC822)')
+			msg = email.message_from_string(data[0][1])
+			typ, data = conn.store(num,'-FLAGS','\\Seen')
+			if ret == 'OK':
+				print (data,'\n',30*'-')
+				print (msg)
+
+	conn.close()
+
 def delete_from_inbox():
 
 		mail = imaplib.IMAP4_SSL(IMAP_SERVER)
@@ -230,7 +253,7 @@ def delete_from_inbox():
 						labelled = True
 						label_message(mail, i, msg_uid, lbl)
 						break
-				if 0 and not labelled:
+				if 1 and not labelled:
 					lbl=None
 					
 					tmp=frm.split('<')
@@ -244,14 +267,17 @@ def delete_from_inbox():
 							lbl = tmp[0].split(' ')[0]
 						
 					else:
-						try:
-							sp = tmp[1].split('@')
-						except:
-							pp(frm)
-							pp(tmp)
-							raise
-						assert len(sp) ==2, sp
-						lbl= sp[1].strip().strip('"').strip('>')
+						if '@' in tmp[1]:
+							try:
+								sp = tmp[1].split('@')
+							except:
+								pp(frm)
+								pp(tmp)
+								raise
+							lbl= sp[1].strip().strip('"').strip('>')
+							
+						else:
+							lbl= tmp[1].strip().strip('"').strip('>')
 					if lbl:
 						try:
 							label_message(mail, i, msg_uid, lbl)
