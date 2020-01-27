@@ -45,15 +45,15 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Pow
 'Django and Flask', 'JavaScript and HTML5', 'Oracle Cloud CRM Functional Architect', 'Oracle Architect',
 'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert', 'Hadoop, Map Reduce, Yarn',
 'Administrative Assistant', 'Oracle Fusion Cloud Financials','El Segundo, CA','Java Backend Developer',
-'Security Engineer']
+'Security Engineer', 'Django and JavaScript' ]
 
-locs = ['Garden City, NY', 'Arizona', 'Washington DC','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
+locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
 'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX','Dallas, TX',
 'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA', 'Seattle, WA',
 'Sunnyvale, CA', 'Houston, TX', 'Alpharetta, GA', 'Pittsburgh PA', 'Quincy, MA', 'Dedham, MA', 'Carry, NC',
 'Columbus, OH', 'Chandler, AZ', 'Nashville, TN', 'Charlotte, NC', 'Fremont, CA','Princeton, NJ', 'Charlotte', 'Hillsboro',
-'Glenivew, IL']
+'Glenivew, IL','Miami', 'Tampa, FL']
 
 
 
@@ -63,7 +63,7 @@ lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Faceboo
 'HUXLEY','LAMP.CODER', 'Staffing', 'HEROLD.COM', 'job.com', 'Craigslist', 'Hotmail', 'Sans.com','buzaleks','NAZARENKO']
 
 #Override delete if following tags are present	
-keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles', 'Python Developer', 'Seattle']
+keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles',  'Seattle']
 
 #Clear \\Trash		
 erase = False
@@ -186,7 +186,7 @@ def delete_from_inbox():
 		mail.login(FROM_EMAIL,FROM_PWD)
 		mail.select('inbox')
 
-		typ, data = mail.search(None, 'ALL')
+		typ, data = mail.search(None, '(UNSEEN)')
 		mail_ids = data[0]
 
 		id_list = mail_ids.split()   
