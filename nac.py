@@ -53,7 +53,7 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA', 'Seattle, WA',
 'Sunnyvale, CA', 'Houston, TX', 'Alpharetta, GA', 'Pittsburgh PA', 'Quincy, MA', 'Dedham, MA', 'Carry, NC',
 'Columbus, OH', 'Chandler, AZ', 'Nashville, TN', 'Charlotte, NC', 'Fremont, CA','Princeton, NJ', 'Charlotte', 'Hillsboro',
-'Glenivew, IL','Miami', 'Tampa, FL']
+'Glenivew, IL','Miami', 'Tampa, FL', 'Smithfield', 'Boston, MA']
 
 
 
@@ -64,7 +64,7 @@ lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Faceboo
 
 #Override delete if following tags are present	
 keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles',  'Seattle']
-
+letgo =['Hadoop']
 #Clear \\Trash		
 erase = False
 		
@@ -243,7 +243,8 @@ def delete_from_inbox():
 									
 							if any(list(map(lambda x: x.upper() in subj, keep))):
 								print (i, 'Keep "%s"' % loc, frm, subj[:20]) 
-								deleted = False
+								if not any(list(map(lambda x: x.upper() in subj, letgo))):
+									deleted = False
 							
 									
 				
