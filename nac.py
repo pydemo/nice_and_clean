@@ -54,7 +54,7 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'Sunnyvale, CA', 'Houston, TX', 'Alpharetta, GA', 'Pittsburgh PA', 'Quincy, MA', 'Dedham, MA', 'Carry, NC',
 'Columbus, OH', 'Chandler, AZ', 'Nashville, TN', 'Minneapolis', 'Fremont, CA','Princeton, NJ', 'Charlotte', 'Hillsboro',
 'Glenivew, IL','Miami', 'Tampa, FL', 'Smithfield', 'Boston, MA', 'Columbus, IN', 'Malvern, PA', 'Raleigh, NC', 'Danbury, CT',
-'Fort Worth, TX','San Jose, CA', 'Baton Rouge, LA', 'Pleasanton, CA', 'Mahwah', 'Rosemont','Stamford, CT', 'Richfield',
+'Fort Worth, TX','San Jose, CA', 'Baton Rouge, LA', 'Pleasanton, CA', 'Mahwah', 'Rosemont','Stamford, CT', 'Richfield','Suitland',
 'Detroit']
 
 
@@ -299,7 +299,6 @@ def delete_from_inbox(mail):
 					
 		#delete_trash(mail)
 		
-		mail.logout()
 		print('Done.')
 		#e()
 		
@@ -313,6 +312,8 @@ if __name__=='__main__':
 	while True:
 		time.sleep(30)
 		delete_from_inbox(mail)
+	
+	mail.logout()
 		
 		
 		
