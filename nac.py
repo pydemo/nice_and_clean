@@ -45,16 +45,17 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Pow
 'Django and Flask', 'JavaScript and HTML5', 'Oracle Cloud CRM Functional Architect', 'Oracle Architect',
 'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert', 'Hadoop, Map Reduce, Yarn',
 'Administrative Assistant', 'Oracle Fusion Cloud Financials','El Segundo, CA','Java Backend Developer',
-'Security Engineer', 'Django and JavaScript', 'Data Modeler', 'Java Developer', 'Stamford, CT' ]
+'Security Engineer', 'Django and JavaScript', 'Data Modeler', 'Java Developer', 'Application Security Analyst']
 
-locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas TX',
+locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
-'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX','Dallas, TX',
+'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX',
 'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA', 'Seattle, WA',
 'Sunnyvale, CA', 'Houston, TX', 'Alpharetta, GA', 'Pittsburgh PA', 'Quincy, MA', 'Dedham, MA', 'Carry, NC',
 'Columbus, OH', 'Chandler, AZ', 'Nashville, TN', 'Minneapolis', 'Fremont, CA','Princeton, NJ', 'Charlotte', 'Hillsboro',
 'Glenivew, IL','Miami', 'Tampa, FL', 'Smithfield', 'Boston, MA', 'Columbus, IN', 'Malvern, PA', 'Raleigh, NC', 'Danbury, CT',
-'Fort Worth, TX','San Jose, CA', 'Baton Rouge, LA', 'Pleasanton, CA']
+'Fort Worth, TX','San Jose, CA', 'Baton Rouge, LA', 'Pleasanton, CA', 'Mahwah', 'Rosemont','Stamford, CT', 'Richfield',
+'Detroit']
 
 
 
@@ -180,17 +181,18 @@ def unseen():
 
 	conn.close()
 
-def delete_from_inbox():
+def delete_from_inbox(mail):
 
-		mail = imaplib.IMAP4_SSL(IMAP_SERVER)
 
-		mail.login(FROM_EMAIL,FROM_PWD)
 		mail.select('inbox')
 
 		typ, data = mail.search(None, '(UNSEEN)')
 		mail_ids = data[0]
 
-		id_list = mail_ids.split()   
+		id_list = mail_ids.split() 
+
+		if not id_list:
+			return
 		first_email_id = int(id_list[0])
 		latest_email_id = int(id_list[-1])
 
@@ -298,8 +300,19 @@ def delete_from_inbox():
 		#delete_trash(mail)
 		
 		mail.logout()
-				
+		print('Done.')
 		#e()
 		
-if 1:
-	delete_from_inbox()
+if __name__=='__main__':
+	if 1:
+		mail = imaplib.IMAP4_SSL(IMAP_SERVER)
+
+		mail.login(FROM_EMAIL,FROM_PWD)
+		
+	delete_from_inbox(mail)
+	while True:
+		time.sleep(30)
+		delete_from_inbox(mail)
+		
+		
+		
