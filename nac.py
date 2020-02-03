@@ -45,7 +45,8 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Pow
 'Django and Flask', 'JavaScript and HTML5', 'Oracle Cloud CRM Functional Architect', 'Oracle Architect',
 'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert', 'Hadoop, Map Reduce, Yarn',
 'Administrative Assistant', 'Oracle Fusion Cloud Financials','El Segundo, CA','Java Backend Developer',
-'Security Engineer', 'Django and JavaScript', 'Data Modeler', 'Java Developer', 'Application Security Analyst']
+'Security Engineer', 'Django and JavaScript', 'Data Modeler', 'Java Developer', 'Application Security Analyst',
+'JAVA and Python', 'Oracle Functional Consultant']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
@@ -55,7 +56,8 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'Columbus, OH', 'Chandler, AZ', 'Nashville, TN', 'Minneapolis', 'Fremont, CA','Princeton, NJ', 'Charlotte', 'Hillsboro',
 'Glenivew, IL','Miami', 'Tampa, FL', 'Smithfield', 'Boston, MA', 'Columbus, IN', 'Malvern, PA', 'Raleigh, NC', 'Danbury, CT',
 'Fort Worth, TX','San Jose, CA', 'Baton Rouge, LA', 'Pleasanton, CA', 'Mahwah', 'Rosemont','Stamford, CT', 'Richfield','Suitland',
-'Detroit']
+'Detroit', 'KANSAS CITY', 'Cincinnati', 'Des Moines','Madison, NJ', 'Richmond, VA','Camphill, PA','SPRING HOUSE',
+'Walnut Creek, CA', 'Deerfield, IL','Richardson, TX','Austin, TX','Basking Ridge','St. Louis']
 
 
 
@@ -245,9 +247,10 @@ def delete_from_inbox(mail):
 									deleted = True
 									
 							if any(list(map(lambda x: x.upper() in subj, keep))):
-								print (i, 'Keep "%s"' % loc, frm, subj[:20]) 
+								print (i, 'Keep "%s"' % loc, frm, subj[:20],list(map(lambda x: x.upper() in subj, keep))) 
 								if not any(list(map(lambda x: x.upper() in subj, letgo))):
 									deleted = False
+									
 							
 									
 				
@@ -264,6 +267,8 @@ def delete_from_inbox(mail):
 						labelled = True
 						label_message(mail, i, msg_uid, lbl)
 						break
+				#keep unread if not deleted 
+				mail.uid('STORE', msg_uid, '-FLAGS', '(\\SEEN)')
 				if 0 and not labelled:
 					lbl=None
 					
