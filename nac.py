@@ -38,26 +38,28 @@ assert FROM_EMAIL
 assert FROM_PWD
 assert IMAP_SERVER
 
-#Delete all emails with "Subject" or "Body" containing these tags
+#Delete all emails with "Subject" or "Body " containing these tags
 kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Power BI Administrator','Pro C',
 'Production Support Lead', 'Oracle DBA', 'Cognos', 'Talend', 'HCM Cloud Technical', 'Business System Analyst',
 'Splunk Developer', 'MongoDB Clustering and Mongo DB scaling', 'Microstrategy Developer','Informatica Developer',
 'Django and Flask', 'JavaScript and HTML5', 'Oracle Cloud CRM Functional Architect', 'Oracle Architect',
 'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert', 'Hadoop, Map Reduce, Yarn',
-'Administrative Assistant', 'Oracle Fusion Cloud Financials','El Segundo, CA','Java Backend Developer',
+'Administrative Assistant', 'Oracle Fusion Cloud Financials','Java Backend Developer',
 'Security Engineer', 'Django and JavaScript', 'Data Modeler', 'Java Developer', 'Application Security Analyst',
 'JAVA and Python', 'Oracle Functional Consultant']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
 'St. Paul, MN', 'Renton, WA', 'Providence, RI', 'Westin, NJ','Atlanta, GA', 'Stow, MA', 'Frisco, TX',
-'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego, CA', 'Seattle, WA',
+'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego', 'Seattle, WA',
 'Sunnyvale, CA', 'Houston, TX', 'Alpharetta, GA', 'Pittsburgh PA', 'Quincy, MA', 'Dedham, MA', 'Carry, NC',
 'Columbus, OH', 'Chandler, AZ', 'Nashville, TN', 'Minneapolis', 'Fremont, CA','Princeton, NJ', 'Charlotte', 'Hillsboro',
-'Glenivew, IL','Miami', 'Tampa, FL', 'Smithfield', 'Boston, MA', 'Columbus, IN', 'Malvern, PA', 'Raleigh, NC', 'Danbury, CT',
+'Glenivew, IL','Miami', 'Tampa, FL', 'Smithfield', 'Boston, MA', 'Columbus, IN', 'Malvern, PA', 'Raleigh', 'Danbury, CT',
 'Fort Worth, TX','San Jose, CA', 'Baton Rouge, LA', 'Pleasanton, CA', 'Mahwah', 'Rosemont','Stamford, CT', 'Richfield','Suitland',
 'Detroit', 'KANSAS CITY', 'Cincinnati', 'Des Moines','Madison, NJ', 'Richmond, VA','Camphill, PA','SPRING HOUSE',
-'Walnut Creek, CA', 'Deerfield, IL','Richardson, TX','Austin, TX','Basking Ridge','St. Louis']
+'Walnut Creek, CA', 'Deerfield, IL','Richardson, TX','Austin, TX','Basking Ridge','St. Louis','El Segundo, CA',
+'Chesterfield, MO', 'Exton, PA', 'Santa Monica', 'Glen Allen, VA', 'Albany, NY', 'Edison, NJ', 'Woonsocket, RI',
+'Peoria, IL','Playa Vista','Betheseda, MD', 'Reston, VA','Iowa City', 'Dearborn, MI','North Wales, PA','Salisbury, NC']
 
 
 
@@ -68,7 +70,7 @@ lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Faceboo
 
 #Override delete if following tags are present	
 keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles',  'Seattle']
-letgo =['Hadoop', 'Data Modeler']
+letgo =['Hadoop', 'Data Modeler','Fulltime']
 #Clear \\Trash		
 erase = False
 		
