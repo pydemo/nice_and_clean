@@ -46,7 +46,7 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Pow
 'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert', 'Hadoop, Map Reduce, Yarn',
 'Administrative Assistant', 'Oracle Fusion Cloud Financials','Java Backend Developer',
 'Security Engineer', 'Django and JavaScript', 'Data Modeler', 'Java Developer', 'Application Security Analyst',
-'JAVA and Python', 'Oracle Functional Consultant']
+'JAVA and Python', 'Oracle Functional Consultant', 'Informatica Lead', 'Clover experience']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
@@ -57,10 +57,11 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'Glenivew, IL','Miami', 'Tampa, FL', 'Smithfield', 'Boston, MA', 'Columbus, IN', 'Malvern, PA', 'Raleigh', 'Danbury, CT',
 'Fort Worth, TX','San Jose, CA', 'Baton Rouge, LA', 'Pleasanton, CA', 'Mahwah', 'Rosemont','Stamford, CT', 'Richfield','Suitland',
 'Detroit', 'KANSAS CITY', 'Cincinnati', 'Des Moines','Madison, NJ', 'Richmond, VA','Camphill, PA','SPRING HOUSE',
-'Walnut Creek, CA', 'Deerfield, IL','Richardson, TX','Austin, TX','Basking Ridge','St. Louis','El Segundo, CA',
+'Walnut Creek, CA', 'Deerfield, IL','Richardson, TX','Austin','Basking Ridge','St. Louis','El Segundo, CA',
 'Chesterfield, MO', 'Exton, PA', 'Santa Monica', 'Glen Allen, VA', 'Albany, NY', 'Edison, NJ', 'Woonsocket, RI',
 'Peoria, IL','Playa Vista','Betheseda, MD', 'Reston, VA','Iowa City', 'Dearborn, MI','North Wales, PA','Salisbury, NC',
-'San Antonio', 'Portsmouth, NH']
+'San Antonio', 'Portsmouth, NH', 'Milwaukee, WI', 'Albuquerque', 'Newark , CA', 'Dresher, PA','Memphis','Cleveland',
+'Greenville, SC','Greensboro', 'Bloomington, MN']
 
 
 
@@ -318,7 +319,7 @@ if __name__=='__main__':
 		
 	delete_from_inbox(mail)
 	while True:
-		time.sleep(30)
+		time.sleep(50)
 		delete_from_inbox(mail)
 	
 	mail.logout()
