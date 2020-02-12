@@ -46,7 +46,8 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Pow
 'PowerCenter', 'Content Management Analyst', 'JAVA, Kafka', 'PySpark Expert', 'Hadoop, Map Reduce, Yarn',
 'Administrative Assistant', 'Oracle Fusion Cloud Financials','Java Backend Developer',
 'Security Engineer', 'Django and JavaScript', 'Data Modeler', 'Java Developer', 'Application Security Analyst',
-'JAVA and Python', 'Oracle Functional Consultant', 'Informatica Lead', 'Clover experience']
+'JAVA and Python', 'Oracle Functional Consultant', 'Informatica Lead', 'Clover experience','Big Data Engineer',
+'Business or System Analyst', 'Corporate Accountant']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
@@ -61,7 +62,7 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'Chesterfield, MO', 'Exton, PA', 'Santa Monica', 'Glen Allen, VA', 'Albany, NY', 'Edison, NJ', 'Woonsocket, RI',
 'Peoria, IL','Playa Vista','Betheseda, MD', 'Reston, VA','Iowa City', 'Dearborn, MI','North Wales, PA','Salisbury, NC',
 'San Antonio', 'Portsmouth, NH', 'Milwaukee, WI', 'Albuquerque', 'Newark , CA', 'Dresher, PA','Memphis','Cleveland',
-'Greenville, SC','Greensboro', 'Bloomington, MN']
+'Greenville, SC','Greensboro', 'Bloomington, MN', 'Jacksonville','Winston, NC',' Austin, TX','West Jefferson','Tempe, AZ']
 
 
 
@@ -72,7 +73,7 @@ lbls = ['Remote','Etsy','Google','Snowflake', 'Hilton', 'CBS', 'Slice', 'Faceboo
 
 #Override delete if following tags are present	
 keep = ['New York', 'Remote', 'Jersey City', 'San Francisco', 'Chicago', 'Los Angeles',  'Seattle']
-letgo =['Hadoop', 'Data Modeler','Fulltime']
+letgo =['Hadoop', 'Data Modeler','Fulltime', 'Junior Oracle Developer','Full time']
 #Clear \\Trash		
 erase = False
 		
