@@ -47,7 +47,8 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Pow
 'Administrative Assistant', 'Oracle Fusion Cloud Financials','Java Backend Developer',
 'Security Engineer', 'Django and JavaScript', 'Data Modeler', 'Java Developer', 'Application Security Analyst',
 'JAVA and Python', 'Oracle Functional Consultant', 'Informatica Lead', 'Clover experience','Big Data Engineer',
-'Business or System Analyst', 'Corporate Accountant']
+'Business or System Analyst', 'Corporate Accountant', 'Support Engineer', 'Project Manager', 'SQL Developer', 'Full Stack',
+'Oracle Application', 'ServiceNow', 'Business Analyst', 'Automation Tester', 'Sybase DBA', 'Senior Software Engineer']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
@@ -62,7 +63,9 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'Chesterfield, MO', 'Exton, PA', 'Santa Monica', 'Glen Allen, VA', 'Albany, NY', 'Edison, NJ', 'Woonsocket, RI',
 'Peoria, IL','Playa Vista','Betheseda, MD', 'Reston, VA','Iowa City', 'Dearborn, MI','North Wales, PA','Salisbury, NC',
 'San Antonio', 'Portsmouth, NH', 'Milwaukee, WI', 'Albuquerque', 'Newark , CA', 'Dresher, PA','Memphis','Cleveland',
-'Greenville, SC','Greensboro', 'Bloomington, MN', 'Jacksonville','Winston, NC',' Austin, TX','West Jefferson','Tempe, AZ']
+'Greenville, SC','Greensboro', 'Bloomington, MN', 'Jacksonville','Winston, NC',' Austin, TX','West Jefferson','Tempe, AZ','Playa Vista',
+'Milford, CT','Englewood, CO', 'Plano, TX', 'Dearborn, MI', 'Carlsbad, CA','Indianapolis', 'Saint Louis', 'St Louis', 'Hartville, SC',
+ 'Franklin, WI', 'Westborough, MA']
 
 
 
@@ -88,7 +91,7 @@ def get_subject(msg):
 			return sub.replace(os.linesep, '') if sub else ''
 		elif type(sub) is email.header.Header:
 			decode = email.header.decode_header(msg['Subject'])[0]
-			pp(decode)
+			#pp(decode)
 			sub = str(decode[0])
 			return sub.replace(os.linesep, '') if sub else ''
 		else:
@@ -119,8 +122,8 @@ def delete_message(mail, msg_uid):
 	#mail.expunge()
 	#mail.close()
 	mov, data = mail.uid('STORE', msg_uid , '+FLAGS', '(\Deleted)')
-	pp(mov)
-	pp(data)	
+	#pp(mov)
+	#pp(data)	
 	mail.expunge()
 
 def label_message(mail, id, msg_uid, label):	
@@ -132,7 +135,7 @@ def label_message(mail, id, msg_uid, label):
 		pp(lbl)
 		raise
 	result = mail.uid('COPY', msg_uid, lbl)
-	pp(result)	
+	#pp(result)	
 	delete_message(mail, msg_uid)
 
 	
@@ -320,7 +323,7 @@ if __name__=='__main__':
 		
 	delete_from_inbox(mail)
 	while True:
-		time.sleep(50)
+		time.sleep(300)
 		delete_from_inbox(mail)
 	
 	mail.logout()
