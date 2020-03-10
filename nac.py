@@ -48,7 +48,8 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Pow
 'Security Engineer', 'Django and JavaScript', 'Data Modeler', 'Java Developer', 'Application Security Analyst',
 'JAVA and Python', 'Oracle Functional Consultant', 'Informatica Lead', 'Clover experience','Big Data Engineer',
 'Business or System Analyst', 'Corporate Accountant', 'Support Engineer', 'Project Manager', 'SQL Developer', 'Full Stack',
-'Oracle Application', 'ServiceNow', 'Business Analyst', 'Automation Tester', 'Sybase DBA', 'Senior Software Engineer']
+'Oracle Application', 'ServiceNow', 'Business Analyst', 'Automation Tester', 'Sybase DBA', 'Senior Software Engineer',
+'Datastage', 'UX Designer', 'Power BI', 'Informatica', 'Administrator', 'SQL Server Developer', 'Oracle Apps DBA']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
@@ -56,7 +57,7 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'McLean, VA', 'Berwyn, PA', 'Dedham, MA','Louisville', 'Dublin, OH', 'San Ramon,CA', 'San Diego', 'Seattle, WA',
 'Sunnyvale, CA', 'Houston, TX', 'Alpharetta, GA', 'Pittsburgh PA', 'Quincy, MA', 'Dedham, MA', 'Carry, NC',
 'Columbus, OH', 'Chandler, AZ', 'Nashville, TN', 'Minneapolis', 'Fremont, CA','Princeton, NJ', 'Charlotte', 'Hillsboro',
-'Glenivew, IL','Miami', 'Tampa, FL', 'Smithfield', 'Boston, MA', 'Columbus, IN', 'Malvern, PA', 'Raleigh', 'Danbury, CT',
+'Glenivew, IL','Miami', 'Tampa', 'Smithfield', 'Boston, MA', 'Columbus, IN', 'Malvern, PA', 'Raleigh', 'Danbury, CT',
 'Fort Worth, TX','San Jose, CA', 'Baton Rouge, LA', 'Pleasanton, CA', 'Mahwah', 'Rosemont','Stamford, CT', 'Richfield','Suitland',
 'Detroit', 'KANSAS CITY', 'Cincinnati', 'Des Moines','Madison, NJ', 'Richmond, VA','Camphill, PA','SPRING HOUSE',
 'Walnut Creek, CA', 'Deerfield, IL','Richardson, TX','Austin','Basking Ridge','St. Louis','El Segundo, CA',
@@ -65,7 +66,8 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'San Antonio', 'Portsmouth, NH', 'Milwaukee, WI', 'Albuquerque', 'Newark , CA', 'Dresher, PA','Memphis','Cleveland',
 'Greenville, SC','Greensboro', 'Bloomington, MN', 'Jacksonville','Winston, NC',' Austin, TX','West Jefferson','Tempe, AZ','Playa Vista',
 'Milford, CT','Englewood, CO', 'Plano, TX', 'Dearborn, MI', 'Carlsbad, CA','Indianapolis', 'Saint Louis', 'St Louis', 'Hartville, SC',
- 'Franklin, WI', 'Westborough, MA']
+ 'Franklin, WI', 'Westborough, MA','WestPalm Beach, FL', 'Golden Valley, MN', 'Charlotte, NC', 'Bellevue, WA', 'Glen Allan, VA',
+ 'Wilmington, DE', 'Spring House', 'Missouri','Arkansas', 'Green bay, WI', 'Florida', 'orlando', 'Pittsburgh','Lavonia','Scottsdale']
 
 
 
