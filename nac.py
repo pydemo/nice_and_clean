@@ -49,7 +49,8 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Pow
 'JAVA and Python', 'Oracle Functional Consultant', 'Informatica Lead', 'Clover experience','Big Data Engineer',
 'Business or System Analyst', 'Corporate Accountant', 'Support Engineer', 'Project Manager', 'SQL Developer', 'Full Stack',
 'Oracle Application', 'ServiceNow', 'Business Analyst', 'Automation Tester', 'Sybase DBA', 'Senior Software Engineer',
-'Datastage', 'UX Designer', 'Power BI', 'Informatica', 'Administrator', 'SQL Server Developer', 'Oracle Apps DBA']
+'Datastage', 'UX Designer', 'Power BI', 'Informatica', 'Administrator', 'SQL Server Developer', 'Oracle Apps DBA','is shared with you',
+'Admin']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
@@ -65,9 +66,10 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'Peoria, IL','Playa Vista','Betheseda, MD', 'Reston, VA','Iowa City', 'Dearborn, MI','North Wales, PA','Salisbury, NC',
 'San Antonio', 'Portsmouth, NH', 'Milwaukee, WI', 'Albuquerque', 'Newark , CA', 'Dresher, PA','Memphis','Cleveland',
 'Greenville, SC','Greensboro', 'Bloomington, MN', 'Jacksonville','Winston, NC',' Austin, TX','West Jefferson','Tempe, AZ','Playa Vista',
-'Milford, CT','Englewood, CO', 'Plano, TX', 'Dearborn, MI', 'Carlsbad, CA','Indianapolis', 'Saint Louis', 'St Louis', 'Hartville, SC',
+'Milford, CT','Englewood, CO', 'Plano, TX','Plano TX', 'Dearborn, MI', 'Carlsbad, CA','Indianapolis', 'Saint Louis', 'St Louis', 'Hartville, SC',
  'Franklin, WI', 'Westborough, MA','WestPalm Beach, FL', 'Golden Valley, MN', 'Charlotte, NC', 'Bellevue, WA', 'Glen Allan, VA',
- 'Wilmington, DE', 'Spring House', 'Missouri','Arkansas', 'Green bay, WI', 'Florida', 'orlando', 'Pittsburgh','Lavonia','Scottsdale']
+ 'Wilmington, DE', 'Spring House', 'Missouri','Arkansas', 'Green bay, WI', 'Florida', 'orlando', 'Pittsburgh','Lavonia','Scottsdale',
+ 'Agoura Hills']
 
 
 
