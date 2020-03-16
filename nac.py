@@ -50,7 +50,7 @@ kws  = ['QlikView', 'Tableau', 'Hadoop Admin', '.Net',  'Hadoop Architect', 'Pow
 'Business or System Analyst', 'Corporate Accountant', 'Support Engineer', 'Project Manager', 'SQL Developer', 'Full Stack',
 'Oracle Application', 'ServiceNow', 'Business Analyst', 'Automation Tester', 'Sybase DBA', 'Senior Software Engineer',
 'Datastage', 'UX Designer', 'Power BI', 'Informatica', 'Administrator', 'SQL Server Developer', 'Oracle Apps DBA','is shared with you',
-'Admin']
+'Admin', 'Full Stack']
 
 locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus OH', 'Denver, CO', 'Dallas',
 'RENTON, Washington','Branchburg, NJ', 'Whippany, NJ', 'Baltimore, MD', 'Phoenix, AZ',
@@ -69,7 +69,7 @@ locs = ['Garden City, NY', 'Arizona', 'Washington','Albertville, AL', 'Columbus 
 'Milford, CT','Englewood, CO', 'Plano, TX','Plano TX', 'Dearborn, MI', 'Carlsbad, CA','Indianapolis', 'Saint Louis', 'St Louis', 'Hartville, SC',
  'Franklin, WI', 'Westborough, MA','WestPalm Beach, FL', 'Golden Valley, MN', 'Charlotte, NC', 'Bellevue, WA', 'Glen Allan, VA',
  'Wilmington, DE', 'Spring House', 'Missouri','Arkansas', 'Green bay, WI', 'Florida', 'orlando', 'Pittsburgh','Lavonia','Scottsdale',
- 'Agoura Hills']
+ 'Agoura Hills','Hartford, CT','Azure Architect', 'Englewood Cliffs, NJ', 'Franklin Lakes, NJ','Collierville']
 
 
 
